@@ -1,0 +1,90 @@
+body {
+    background: url("images/bg.png") no-repeat scroll center top #D6D9D9; /* Cai dat hinh va mau nen cho trang */
+    color: #656565; /* Thiet lap mau mac dinh cho tat ca cac chu */
+    font-size: 13px; /* Thiet lap kich co chu */
+    line-height: 1.5; /* Thiet lap do cao cua mot dong */
+}
+
+a {
+	color: #018396; /* Thiet lap mau chu cho duong dan */
+	text-decoration: none; /* Mac dinh duong dan khong co gach chan */
+	transition: all 0.5s ease-in-out 0s; /* Hieu ung khi thay doi dinh dang cua duong dan */
+}
+
+a:hover {
+	text-decoration: underline; /* Khi dua chuot ngang qua duong dan thi xuat hien gach chan */
+}
+
+.wrapper {
+    width: 1020px; /* Do rong cua trang la 1020px */
+}
+
+header .logo {
+	margin: 10px 0; /* Logo se cach phia tren 10px va cach phia duoi 10px */
+}
+.nav {
+    background: none repeat scroll 0 0 #CC3300; /* Thiet lap mau nen cho menu */
+    border-bottom: 3px solid #FF6600; /* Duong vien ben duoi menu voi kich thuoc 3px */
+    padding: 0; /* Khong cach ben trong */
+}
+.nav ul {
+    list-style: none outside none; /* Khong hien thi bullet phia truoc list */
+    margin: 0; /* Khong cach ben ngoai */
+    padding: 0; /* Khong cach ben trong */
+}
+
+.nav .menu li {
+	display: inline; /* Hien thi tren cung mot hang */
+}
+
+.nav .menu a {
+    color: rgba(255, 255, 255, 0.75); /* Mau chu cua duong dan tren menu */
+    display: inline-block; /* Hien thi cung hang va nhay xuong hang khi het cho */
+    font-size: 13px; 
+    font-weight: bold; /* Dinh dang kieu chu in dam */
+    padding: 20px;
+    text-transform: uppercase; /* Luon luon xuat chu IN HOA ra man hinh */
+}
+
+.nav .menu a:hover {
+	text-decoration: underline /* Gach chan khi dua chuot ngang qua */
+}
+
+
+.content {
+    background: url("images/content-bg.jpg") repeat-x scroll right bottom #FFFFFF;
+    border: 2px solid #FFFFFF;
+    margin-top: 10px;
+    overflow: hidden; /* Boc khung toan bo sidebar va main */
+    padding: 40px;
+}
+
+main section h1 {
+	display: none; /* An di dong chu Latest Posts */
+}
+
+main {
+    float: left; /* Nam ben trai */
+    width: 70%; /* Do rong 70% cua khung */
+}
+
+.sidebar {
+    float: right; /* Nam ben phai */
+    width: 25%; /* Do rong 25% cua khung */
+}
+
+.content img {
+    border: 1px solid #CCCCCC;
+    padding: 2px;
+}
+
+article {
+    border-bottom: 1px dotted #E6E6E6; /* Tao duong vien ben duoi moi bai viet khi duyet danh sach */
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+}
+
+.pagination .page-numbers {
+    font-size: 25px;
+    margin-right: 10px;
+}
