@@ -202,6 +202,29 @@ if ( current_user_can('list_users') ) {
 		$submenu['profile.php'][10] = array(__('Add New User'), 'promote_users', 'user-new.php');
 }
 
+if ( current_user_can('list_users') )
+	$menu[71] = array( __('Thành viên'), 'list_users', 'thanhvien.php', '', 'menu-top menu-icon-users', 'menu-users', 'dashicons-admin-users' );
+else
+	$menu[71] = array( __('Profile'), 'read', 'profile.php', '', 'menu-top menu-icon-users', 'menu-users', 'dashicons-admin-users' );
+	
+if ( current_user_can('list_users') ) {
+	$_wp_real_parent_file['profile.php'] = 'thanhvien.php'; // Back-compat for plugins adding submenus to profile.php.
+	$submenu['thanhvien.php'][5] = array(__('All Users'), 'list_users', 'thanhvien.php');
+	if ( current_user_can('create_users') )
+		$submenu['thanhvien.php'][10] = array(_x('Add New', 'user'), 'create_users', 'user-new.php');
+	else
+		$submenu['thanhvien.php'][10] = array(_x('Add New', 'user'), 'promote_users', 'user-new.php');
+
+	$submenu['thanhvien.php'][15] = array(__('Your Profile'), 'read', 'profile.php');
+} else {
+	$_wp_real_parent_file['thanhvien.php'] = 'profile.php';
+	$submenu['profile.php'][5] = array(__('Your Profile'), 'read', 'profile.php');
+	if ( current_user_can('create_users') )
+		$submenu['profile.php'][10] = array(__('Thêm thành viên'), 'create_users', 'user-new.php');
+	else
+		$submenu['profile.php'][10] = array(__('Thêm thành viên'), 'promote_users', 'user-new.php');
+}
+
 $menu[75] = array( __('Tools'), 'edit_posts', 'tools.php', '', 'menu-top menu-icon-tools', 'menu-tools', 'dashicons-admin-tools' );
 	$submenu['tools.php'][5] = array( __('Available Tools'), 'edit_posts', 'tools.php' );
 	$submenu['tools.php'][10] = array( __('Import'), 'import', 'import.php' );

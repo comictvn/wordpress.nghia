@@ -612,7 +612,7 @@ class WP_User_Query {
 
 			$search_columns = array();
 			if ( $qv['search_columns'] )
-				$search_columns = array_intersect( $qv['search_columns'], array( 'ID', 'user_login', 'user_email', 'user_url', 'user_nicename' ) );
+				$search_columns = array_intersect( $qv['search_columns'], array( 'ID', 'user_login', 'user_email', 'user_url', 'user_nicename', 'user_registered' ) );
 			if ( ! $search_columns ) {
 				if ( false !== strpos( $search, '@') )
 					$search_columns = array('user_email');

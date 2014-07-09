@@ -761,7 +761,6 @@ class WP_List_Table {
 	 */
 	function display() {
 		extract( $this->_args );
-
 		$this->display_tablenav( 'top' );
 
 ?>
@@ -816,10 +815,13 @@ class WP_List_Table {
 <?php
 		$this->extra_tablenav( $which );
 		$this->pagination( $which );
+		
 ?>
 
 		<br class="clear" />
 	</div>
+	
+
 <?php
 	}
 

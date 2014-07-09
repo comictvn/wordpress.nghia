@@ -257,11 +257,11 @@ class WP_Users_List_Table extends WP_List_Table {
 	function get_columns() {
 		$c = array(
 			'cb'       => '<input type="checkbox" />',
-			'username' => __( 'Username' ),
-			'name'     => __( 'Name' ),
+			'username' => __( 'Tên đăng nhập' ),
+			'name'     => __( 'Tên' ),
 			'email'    => __( 'E-mail' ),
-			'role'     => __( 'Role' ),
-			'posts'    => __( 'Posts' )
+			'role'     => __( 'Quyền' ),
+			'posts'    => __( 'Bài Post' )
 		);
 
 		if ( $this->is_site_users )
