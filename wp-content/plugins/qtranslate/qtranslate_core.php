@@ -638,7 +638,6 @@ function qtrans_convertURL($url='', $lang='', $forceadmin = false) {
 // splits text with language tags into array
 function qtrans_split($text, $quicktags = true) {
 	global $q_config;
-	
 	//init vars
 	$split_regex = "#(<!--[^-]*-->|\[:[a-z]{2}\])#ism";
 	$current_language = "";
