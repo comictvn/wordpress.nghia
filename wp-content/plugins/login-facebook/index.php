@@ -209,36 +209,33 @@ $user_data['last_name'] = $user_profile['last_name'];
  
 $user_data['user_url'] = $user_profile['link'];
 
-$user_data['wp_user_avatar'] = "https://d2k1ftgv7pobq7.cloudfront.net/images/stickers/4526d8454c53066ee45a2bdd2669119c/thumbsup.png";
+$user_data['wp_user_avatar'] = "/path/to/uploads/2014/07/Tulips.jpg";
 
-$img = file_get_contents("https://graph.facebook.com/$fb_user_id/picture?type=large");
-$file = dirname(".")."/wp-content/uploads/$fb_user_id.jpg";
-file_put_contents($file, $img);
+
  
 $user_data['display_name'] = $user_profile['first_name']." ".$user_profile['last_name'];
-$post = array();
-$post['guid'] = $user_data['wp_user_avatar'];
-$my_post = array(
-  'post_title'    => 'My post',
-  'post_content'  => 'This is my post.',
-  'post_status'   => 'publish',
-  'post_author'   => 1,
-  'post_type' 	  => 'attachment'
-);
-$filetype = wp_check_filetype( basename( $user_data['wp_user_avatar'] ), null );
-$wp_upload_dir = wp_upload_dir();
+$image_url= "https://graph.facebook.com/$fb_user_id/picture?type=large";
+$image_url = getFacebookImageFromURL($image_url);
+
+$upload_dir = wp_upload_dir();
+$image_data = file_get_contents($image_url);
+$filename = basename($image_url);
+if(wp_mkdir_p($upload_dir['path']))
+    $file = $upload_dir['path'] . '/' . $filename;
+else
+    $file = $upload_dir['basedir'] . '/' . $filename;
+file_put_contents($file, $image_data);
+
+$wp_filetype = wp_check_filetype($filename, null );
 $attachment = array(
-	'guid'           => $wp_upload_dir['url'] . '/' . basename( $user_data['wp_user_avatar'] ), 
-	'post_mime_type' => $filetype['type'],
-	'post_title'     => preg_replace( '/\.[^.]+$/', '', basename( $user_data['wp_user_avatar'] ) ),
-	'post_content'   => '',
-	'post_status'    => 'inherit'
+    'post_mime_type' => $wp_filetype['type'],
+    'post_title' => sanitize_file_name($filename),
+    'post_content' => '',
+    'post_status' => 'inherit'
 );
 
 
-add_post($my_post, $attachment, $user_data['wp_user_avatar']);
 
-print_r($post); exit();
 //lấy các thông tin cần thiết từ user facebook
 
 $user = get_users(array(
@@ -283,7 +280,7 @@ if(!is_email($_POST['uemail']) || email_exists($_POST['uemail'])){
  
 $user_data['user_email'] = $_POST['uemail'];
  
-dvd_login($user_data, $fb_user_id, $user_data['wp_user_avatar'], home_url());
+dvd_login($user_data, $fb_user_id, $user_data['wp_user_avatar'], home_url(), $attachment, $file );
  
 }
  
@@ -303,7 +300,7 @@ dvd_login($user_data, $fb_user_id, $user_data['wp_user_avatar'], home_url());
  
 }else{ //đã có user => login
  
-dvd_login($user_data, $fb_user_id, $user_data['wp_user_avatar'], home_url());
+dvd_login($user_data, $fb_user_id, $user_data['wp_user_avatar'], home_url(), $attachment, $file);
  
 }
  

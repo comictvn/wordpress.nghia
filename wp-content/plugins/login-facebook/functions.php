@@ -1,13 +1,27 @@
 <?php
-function dvd_login($user_data, $fb_id, $avartar, $redirect_url){//hàm tạo mới user và login
- 
+function getFacebookImageFromURL($url)
+{
+  $headers = get_headers($url, 1);
+  if (isset($headers['Location']))
+  {
+    return $headers['Location'];
+  }
+}
+function dvd_login($user_data, $fb_id, $avartar, $redirect_url, $attachment, $file){//hàm tạo mới user và login
+	
 	$uid = wp_insert_user($user_data); //tạo user
 	 
 	if(!is_wp_error($uid)){
 	 
 	update_usermeta($uid, "fb_id", $fb_id); //cập nhật user meta
 	
-	update_usermeta($uid, "wp_user_avatar", $avartar); //cập nhật user meta
+	
+	
+	$attach_id = wp_insert_attachment( $attachment, $file, 0 );
+	require_once(ABSPATH . 'wp-admin/includes/image.php');
+	$attach_data = wp_generate_attachment_metadata( $attach_id, $file );
+	wp_update_attachment_metadata( $attach_id, $attach_data );
+	update_usermeta($uid, "wp_user_avatar", $attach_id); //cập nhật user meta
 	
 	wp_set_auth_cookie($uid); //chứng thực
 	 
@@ -25,13 +39,10 @@ function dvd_login($user_data, $fb_id, $avartar, $redirect_url){//hàm tạo m�
  
 }
 
-function add_post($post, $attachment, $filename)
+function add_post($attachment, $file)
 {
 	
-	//$postid = wp_insert_post($post);
-	$attach_id = wp_insert_attachment( $attachment, $user_data['wp_user_avatar'], 0 );
-	$attach_data = wp_generate_attachment_metadata( $attach_id, $filename );
-	wp_update_attachment_metadata( $attach_id, $attach_data );
+	return $attach_id;
 }
 
 function dvd_create_userlogin($fbusername, $fbid){ //hàm tạo tên đăng nhập cho user không trùng lặp dựa vào tên đăng nhập facebook
