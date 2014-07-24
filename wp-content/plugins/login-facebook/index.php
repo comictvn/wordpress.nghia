@@ -81,7 +81,7 @@ array(
  
 );
  
-}else{ //trường hợp có rồi thì cập nhật lại nội dung
+} else{ //trường hợp có rồi thì cập nhật lại nội dung
  
 wp_update_post(array(
  

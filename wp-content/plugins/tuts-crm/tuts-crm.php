@@ -29,24 +29,24 @@ class WPTutsCRM {
     }
 	function define_sortable_table_columns( $columns ) {
  
-    $columns['email_address'] = 'email_address';
-    $columns['phone_number'] = 'phone_number';
+    $columns['price_product'] = 'price_product';
+    $columns['type'] = 'type';
      
     return $columns;
      
-}
+	}
 function acf_fields() {
  
     if( function_exists( "register_field_group" ) ) {
         register_field_group(array (
             'id' => 'acf_contact-details',
-            'title' => 'Contact Details',
+            'title' => 'Product Details',
             'fields' => array (
                 array (
                     'key' => 'field_5323276db7e18',
-                    'label' => 'Email Address',
-                    'name' => 'email_address',
-                    'type' => 'email',
+                    'label' => 'Price Product',
+                    'name' => 'price_product',
+                    'type' => 'text',
                     'required' => 1,
                     'default_value' => '',
                     'placeholder' => '',
@@ -55,9 +55,9 @@ function acf_fields() {
                 ),
                 array (
                     'key' => 'field_53232a6cf3800',
-                    'label' => 'Phone Number',
-                    'name' => 'phone_number',
-                    'type' => 'number',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
                     'default_value' => '',
                     'placeholder' => '',
                     'prepend' => '',
@@ -82,8 +82,8 @@ function acf_fields() {
                     'type' => 'select',
                     'required' => 1,
                     'choices' => array (
-                        'Prospect' => 'Prospect',
-                        'Customer' => 'Customer',
+                        'aothunnam' => 'Áo thun nam',
+                        'aothunnu' => 'Áo thun nữ',
                     ),
                     'default_value' => '',
                     'allow_null' => 0,
@@ -120,6 +120,7 @@ function acf_fields() {
                     12 => 'send-trackbacks',
                 ),
             ),
+	
             'menu_order' => 1,
         ));
     }
@@ -133,8 +134,8 @@ function orderby_sortable_table_columns( $vars ) {
     if ( ! isset( $vars['orderby'] ) ) return $vars;
      
     // Check if the orderby parameter matches one of our sortable columns
-    if ( $vars['orderby'] == 'email_address' OR
-        $vars['orderby'] == 'phone_number' ) {
+    if ( $vars['orderby'] == 'price_product' OR
+        $vars['orderby'] == 'type' ) {
         // Add orderby meta_value and meta_key parameters to the query
         $vars = array_merge( $vars, array(
             'meta_key' => $vars['orderby'],
@@ -147,8 +148,8 @@ function orderby_sortable_table_columns( $vars ) {
 }	
    function add_table_columns( $columns ) {
  
-    $columns['email_address'] = __( 'Email Address', 'tuts-crm' );
-    $columns['phone_number'] = __( 'Phone Number', 'tuts-crm' );
+    $columns['price_product'] = __( 'Price', 'tuts-crm' );
+    $columns['type'] = __( 'Category', 'tuts-crm' );
     $columns['photo'] = __( 'Photo', 'tuts-crm' );
      
     return $columns;
@@ -158,7 +159,7 @@ function orderby_sortable_table_columns( $vars ) {
  
     // Field
     $field = get_field( $columnName, $post_id );
-     
+    
     if ( 'photo' == $columnName ) {
         echo '<img src="' . $field['sizes']['thumbnail'].'" width="'.$field['sizes']['thumbnail-width'] . '" height="' . $field['sizes']['thumbnail-height'] . '" />';
     } else {
@@ -171,18 +172,18 @@ function orderby_sortable_table_columns( $vars ) {
     function register_custom_post_type() {
     register_post_type('contact', array(
         'labels' => array(
-            'name'               => _x( 'Contacts', 'post type general name', 'tuts-crm' ),
-            'singular_name'      => _x( 'Contact', 'post type singular name', 'tuts-crm' ),
-            'menu_name'          => _x( 'Contacts', 'admin menu', 'tuts-crm' ),
-            'name_admin_bar'     => _x( 'Contact', 'add new on admin bar', 'tuts-crm' ),
+            'name'               => _x( 'Product', 'post type general name', 'tuts-crm' ),
+            'singular_name'      => _x( 'Product', 'post type singular name', 'tuts-crm' ),
+            'menu_name'          => _x( 'Products', 'admin menu', 'tuts-crm' ),
+            'name_admin_bar'     => _x( 'Product', 'add new on admin bar', 'tuts-crm' ),
             'add_new'            => _x( 'Add New', 'contact', 'tuts-crm' ),
-            'add_new_item'       => __( 'Add New Contact', 'tuts-crm' ),
-            'new_item'           => __( 'New Contact', 'tuts-crm' ),
-            'edit_item'          => __( 'Edit Contact', 'tuts-crm' ),
-            'view_item'          => __( 'View Contact', 'tuts-crm' ),
-            'all_items'          => __( 'All Contacts', 'tuts-crm' ),
-            'search_items'       => __( 'Search Contacts', 'tuts-crm' ),
-            'parent_item_colon'  => __( 'Parent Contacts:', 'tuts-crm' ),
+            'add_new_item'       => __( 'Add New Product', 'tuts-crm' ),
+            'new_item'           => __( 'New Product', 'tuts-crm' ),
+            'edit_item'          => __( 'Edit Product', 'tuts-crm' ),
+            'view_item'          => __( 'View Product', 'tuts-crm' ),
+            'all_items'          => __( 'All Product', 'tuts-crm' ),
+            'search_items'       => __( 'Search Product', 'tuts-crm' ),
+            'parent_item_colon'  => __( 'Parent Product:', 'tuts-crm' ),
             'not_found'          => __( 'No conttacts found.', 'tuts-crm' ),
             'not_found_in_trash' => __( 'No contacts found in Trash.', 'tuts-crm' ),
         ),
@@ -201,6 +202,7 @@ function orderby_sortable_table_columns( $vars ) {
         'show_ui'       => true,
         'supports'      => array(
             'title',
+	    'editor',
             'author',
             'comments', 
         ),
@@ -239,7 +241,7 @@ function rmcc_post_listing_shortcode1( $atts ) {
             <?php while ( $query->have_posts() ) : $query->the_post(); ?>
             <li id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-		<?php echo get_post_meta( 58,'phone_number', true  ); ?>
+		<?php echo get_post_meta( 58,'price_product', true  ); ?>
 		<?php echo $query->the_post() ?>
             </li>
             <?php endwhile;

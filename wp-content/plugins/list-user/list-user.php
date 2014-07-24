@@ -60,6 +60,6 @@
 		 
 		}
  
-        add_action( 'genesis_entry_header', 'add_ads' );
+    add_action( 'genesis_entry_header', 'add_ads' );
 	add_shortcode('List-User', 'list_user');
 ?>

@@ -4,13 +4,13 @@ function acf_fields() {
     if( function_exists( "register_field_group" ) ) {
         register_field_group(array (
             'id' => 'acf_contact-details',
-            'title' => 'Contact Details',
+            'title' => 'Product Details',
             'fields' => array (
                 array (
                     'key' => 'field_5323276db7e18',
-                    'label' => 'Email Address',
-                    'name' => 'email_address',
-                    'type' => 'email',
+                    'label' => 'Price Product',
+                    'name' => 'price_product',
+                    'type' => 'text',
                     'required' => 1,
                     'default_value' => '',
                     'placeholder' => '',
@@ -19,9 +19,9 @@ function acf_fields() {
                 ),
                 array (
                     'key' => 'field_53232a6cf3800',
-                    'label' => 'Phone Number',
-                    'name' => 'phone_number',
-                    'type' => 'number',
+                    'label' => 'Description',
+                    'name' => 'description',
+                    'type' => 'textarea',
                     'default_value' => '',
                     'placeholder' => '',
                     'prepend' => '',
@@ -46,8 +46,8 @@ function acf_fields() {
                     'type' => 'select',
                     'required' => 1,
                     'choices' => array (
-                        'Prospect' => 'Prospect',
-                        'Customer' => 'Customer',
+                        'aothunnam' => 'Áo thun nam',
+                        'aothunnu' => 'Áo thun nữ',
                     ),
                     'default_value' => '',
                     'allow_null' => 0,
